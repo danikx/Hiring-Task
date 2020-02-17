@@ -3,24 +3,29 @@ package com.mobiquityinc.packer;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 
 public class PackerTest {
 
     @Test
-    public void testPattern() {
-        String line = "(5,100.00,€52)";
-        Pattern pattern = Pattern.compile("\\((\\d*),(\\d*.\\d*),.(\\d*)\\)");
+    public void testPacker() throws Exception {
+        String answers = loadTestAnswer();
+        String result = Packer.pack("data/test_cases.txt");
 
-        Matcher matcher = pattern.matcher(line);
+        System.out.println(result);
 
-        if (matcher.matches()) {
-            Assert.assertEquals("5", matcher.group(1));
-            Assert.assertEquals("100.00", matcher.group(2));
-            Assert.assertEquals("52", matcher.group(3));
-        } else {
-            Assert.fail("pattern doesn't match");
-        }
+        Assert.assertEquals(answers, result);
+    }
+
+    private String loadTestAnswer() throws FileNotFoundException {
+        BufferedReader fis = new BufferedReader(new FileReader("data/test_answers.txt"));
+        StringBuilder builder = new StringBuilder();
+        fis.lines().forEach(line -> {
+            builder.append(line).append("\n");
+        });
+
+        return builder.toString();
     }
 }

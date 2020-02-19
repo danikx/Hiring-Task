@@ -16,40 +16,46 @@ import java.util.regex.Pattern;
 public class DataHelper {
     public static final Pattern THING_PATTERN = Pattern.compile("\\((\\d*),(\\d*.\\d*),.(\\d*)\\)");
     private static final String EXCEPTION_BAD_THING_FORMAT = "Bad thing format";
+    private static final String EXCEPTION_NO_THING = "No things";
+    private static final String EXCEPTION_BAD_CASE_FORMAT = "bad case format";
 
 
     public static List<Case> loadCases(String filePath) throws APIException {
-        List<Case> result = new ArrayList<>();
+        final List<Case> result = new ArrayList<>();
 
         try (Scanner scanner = new Scanner(new File(filePath))) {
-            scanner.useDelimiter(" ");
-
             while (scanner.hasNext()) {
                 Case value = new Case();
                 result.add(value);
 
-                value.setMaxWeight(scanner.nextInt());
+                value.setWeightLimit(scanner.nextInt()); // get weight limit
                 scanner.next(); //skip symbol ':'
 
                 while (scanner.hasNext(THING_PATTERN)) {
-                    value.addThings(parseThing(scanner.next()));
+                    value.addThing(parseThing(scanner.next()));
+                }
+
+                if (value.getThings().isEmpty()) {
+                    throw new APIException(EXCEPTION_NO_THING);
                 }
             }
-        } catch (IOException | InputMismatchException e) {
+        } catch (IOException | NumberFormatException e) {
             throw new APIException(e.getMessage());
+        } catch (InputMismatchException e) {
+            throw new APIException(EXCEPTION_BAD_CASE_FORMAT);
         }
 
         return result;
     }
 
-    public static Thing parseThing(String thing) throws APIException {
-        Matcher matcher = THING_PATTERN.matcher(thing);
+    private static Thing parseThing(String thing) throws APIException {
+        final Matcher matcher = THING_PATTERN.matcher(thing);
         if (matcher.matches()) {
             try {
                 return new Thing(
                         Integer.parseInt(matcher.group(1)),   // index
                         Double.parseDouble(matcher.group(2)), // weight
-                        Double.parseDouble(matcher.group(3))  // cost
+                        Integer.parseInt(matcher.group(3))  // cost
                 );
             } catch (NumberFormatException e) {
                 throw new APIException(EXCEPTION_BAD_THING_FORMAT + ": " + thing);

@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Case {
-    private int maxWeight;
+    private int weightLimit;
     private List<Thing> things = new ArrayList<>();
 
-    public int getMaxWeight() {
-        return maxWeight;
+    public int getWeightLimit() {
+        return weightLimit;
     }
 
-    public void setMaxWeight(int maxWeight) {
-        this.maxWeight = maxWeight;
+    public void setWeightLimit(int maxWeight) {
+        this.weightLimit = maxWeight;
     }
 
     public List<Thing> getThings() {
@@ -23,7 +23,7 @@ public class Case {
         this.things = things;
     }
 
-    public void addThings(Thing thing) {
+    public void addThing(Thing thing) {
         this.things.add(thing);
     }
 }

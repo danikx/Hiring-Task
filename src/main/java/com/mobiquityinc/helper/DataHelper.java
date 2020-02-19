@@ -13,6 +13,8 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * */
 public class DataHelper {
     public static final Pattern THING_PATTERN = Pattern.compile("\\((\\d*),(\\d*.\\d*),.(\\d*)\\)");
     private static final String EXCEPTION_BAD_THING_FORMAT = "Bad thing format";

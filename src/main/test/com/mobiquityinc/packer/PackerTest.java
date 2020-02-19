@@ -18,7 +18,7 @@ public class PackerTest {
 
     @Test
     public void testPacker1() throws Exception {
-        String result = Packer.pack("data/test_cases_.txt");
+        String result = Packer.pack("data/test_case.txt");
         Assert.assertEquals("1,2\n", result);
     }
 

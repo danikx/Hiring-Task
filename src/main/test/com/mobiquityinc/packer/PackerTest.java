@@ -11,16 +11,19 @@ public class PackerTest {
 
     @Test
     public void testPacker() throws Exception {
-        String answers = loadTestAnswer();
+        String answers = loadTestAnswer("data/test_answers.txt");
         String result = Packer.pack("data/test_cases.txt");
-
-        System.out.println(result);
-
         Assert.assertEquals(answers, result);
     }
 
-    private String loadTestAnswer() throws FileNotFoundException {
-        BufferedReader fis = new BufferedReader(new FileReader("data/test_answers.txt"));
+    @Test
+    public void testPacker1() throws Exception {
+        String result = Packer.pack("data/test_cases_.txt");
+        Assert.assertEquals("1,2\n", result);
+    }
+
+    private String loadTestAnswer(String filePath) throws FileNotFoundException {
+        BufferedReader fis = new BufferedReader(new FileReader(filePath));
         StringBuilder builder = new StringBuilder();
         fis.lines().forEach(line -> {
             builder.append(line).append("\n");

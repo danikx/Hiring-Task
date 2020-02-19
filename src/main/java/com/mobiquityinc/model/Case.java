@@ -3,6 +3,7 @@ package com.mobiquityinc.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/** Data class for test case */
 public class Case {
     private int weightLimit;
     private List<Thing> things = new ArrayList<>();

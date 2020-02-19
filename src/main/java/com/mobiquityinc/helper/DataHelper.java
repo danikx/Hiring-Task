@@ -13,15 +13,14 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * */
+/** Data load helper class */
 public class DataHelper {
     public static final Pattern THING_PATTERN = Pattern.compile("\\((\\d*),(\\d*.\\d*),.(\\d*)\\)");
     private static final String EXCEPTION_BAD_THING_FORMAT = "Bad thing format";
     private static final String EXCEPTION_NO_THING = "No things";
     private static final String EXCEPTION_BAD_CASE_FORMAT = "bad case format";
 
-
+    /** Loads test cases from given file */
     public static List<Case> loadCases(String filePath) throws APIException {
         final List<Case> result = new ArrayList<>();
 
@@ -50,6 +49,7 @@ public class DataHelper {
         return result;
     }
 
+    /** parse thing data from given string */
     private static Thing parseThing(String thing) throws APIException {
         final Matcher matcher = THING_PATTERN.matcher(thing);
         if (matcher.matches()) {

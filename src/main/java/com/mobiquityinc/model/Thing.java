@@ -1,5 +1,6 @@
 package com.mobiquityinc.model;
 
+/** Data class for thing */
 public class Thing {
     private int index;
     private double weight;

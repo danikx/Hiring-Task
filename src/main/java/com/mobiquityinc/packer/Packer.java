@@ -1,7 +1,6 @@
 package com.mobiquityinc.packer;
 
 import com.mobiquityinc.exception.APIException;
-import com.mobiquityinc.helper.DataHelper;
 import com.mobiquityinc.model.Case;
 import com.mobiquityinc.model.Thing;
 
@@ -13,9 +12,7 @@ public class Packer {
     private Packer() {
     }
 
-    public static String pack(String filePath) throws APIException {
-        List<Case> cases = DataHelper.loadCases(filePath);
-
+    public static String pack(List<Case> cases) throws APIException {
         final StringBuilder builder = new StringBuilder();
 
         for (Case aCase : cases) {
@@ -87,7 +84,7 @@ public class Packer {
         for (int i = aCase.getThings().size(), j = aCase.getWeightLimit(); i > 0; i--) {
 
             // check cost with previous row if they are different
-            // it means that it include the last thing
+            // it means that it includes the last thing
             if (memo[i][j] != memo[i - 1][j]) {
                 if (builder.length() > 0) builder.append(",");
 
@@ -109,12 +106,15 @@ public class Packer {
         // print max cost
         int maxCost = memo[aCase.getThings().size()][aCase.getWeightLimit()];
         System.out.println("max cost: " + maxCost);
+        System.out.println();
     }
 
     /**
      * prints memo array
      */
     private static void printMemo(int[][] memo, Case aCase) {
+        System.out.println("weight: "+aCase.getWeightLimit());
+
         for (int i = 0; i <= aCase.getThings().size(); i++) {
             for (int j = 0; j <= aCase.getWeightLimit(); j++) {
                 System.out.print(memo[i][j] + "\t");

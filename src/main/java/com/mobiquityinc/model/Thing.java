@@ -39,4 +39,9 @@ public class Thing {
     public void setCost(int cost) {
         this.cost = cost;
     }
+
+    @Override
+    public String toString(){
+        return "i: "+index+", weight: "+ weight;
+    }
 }

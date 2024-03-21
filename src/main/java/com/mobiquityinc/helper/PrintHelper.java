@@ -43,6 +43,30 @@ public class PrintHelper {
         System.out.println();
     }
 
+    public static void printMemo(int[][] memo, Case aCase, int factor) {
+        System.out.println("Weight: " + aCase.getWeightLimit() * factor);
+
+        // print header
+        System.out.print("    ");
+
+        for (int i = 0; i <= aCase.getWeightLimit() * factor; i++) {
+            System.out.print(String.format("%3d", i) + ' ');
+        }
+
+        System.out.println();
+
+        for (int i = 0; i <= aCase.getThings().size(); i++) {
+            System.out.print(String.format("%2d: ", i));
+
+            for (int j = 0; j <= aCase.getWeightLimit() * factor; j++) {
+                System.out.print(String.format("%3d", memo[i][j]) + " ");
+            }
+            System.out.println();
+        }
+        System.out.println();
+    }
+
+
     public static String arrayToStr(java.util.List<Integer> indexes) {
         return indexes.stream()
                 // .sorted()

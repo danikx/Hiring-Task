@@ -35,7 +35,7 @@ public class Packer {
                     builder.append("-").append("\n"); // if doesn't suit skip case
                 }
             } else {
-                builder.append(PrintHelper.arrayToStr(Algo.solve(aCase))).append("\n");
+                builder.append(PrintHelper.arrayToStr(AlgoSwitcher.solve(aCase))).append("\n");
             }
         }
 
